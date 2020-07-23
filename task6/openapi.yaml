@@ -1,0 +1,99 @@
+openapi: 3.0.0
+info:
+  title: Andrey Ignatiev
+  version: 1.0.0
+paths:
+
+
+  /begin:
+    get:
+      description: start writer
+      responses:
+        '200':
+          description: status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  r:
+                    type: string
+                    example: OK
+  /end:
+    get:
+      description: stops writer
+      responses:
+        '200':
+          description: status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  r:
+                    type: string
+                    example: OK
+  /av:
+    get:
+      summary: returns count and variables
+      responses:
+        '200':
+          description: status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  variables_count:
+                    type: integer
+                    example: 1
+                  vars:
+                    type: object
+                    additionalProperties:
+                      type: number
+                    example: 
+                      a: 3.5
+                      cd: -11.2
+  /var:
+    get:
+      summary: Add or Del var
+      parameters:
+      - name: name
+        in: query
+        description: var name
+        required: true
+        schema:
+          type: string
+          example: a
+      - name: bv
+        in: query
+        description: begin value
+        schema:
+          type: number
+          example: 1.2
+          default: 1.0
+        - name: tts
+          in: query
+          description: time to sleep, before simulate and write
+          schema:
+            type: number
+            example: 1.2
+            default: 1.0
+      - name: flag
+        in: query
+        description: add or del value
+        schema:
+          type: string
+          default: add
+          example: del
+      responses:
+        '200':
+          description: status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  answer:
+                    type: string
+                    example: OK
